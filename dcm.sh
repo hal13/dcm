@@ -3,7 +3,7 @@
 COMMAND=$1
 vm_code=$2
 
-#’è”’è‹`
+#å®šæ•°å®šç¾©
 host1="192.168.56.103"
 host2="192.168.56.104"
 host3="192.168.56.105"
@@ -14,8 +14,8 @@ TARGET_FILE="hoge.xml"
 TARGET_DIR="/etc/libvirt/qemu/"
 
 
-#ŠÖ”’è‹`
-##ƒGƒ‰[ˆ—
+#é–¢æ•°å®šç¾©
+##ã‚¨ãƒ©ãƒ¼å‡¦ç†
 function die() {
   if [ $# -eq 1 ] ; then
       echo "ERROR : ${1}"
@@ -25,7 +25,7 @@ function die() {
   exit 1
 }
 
-#ƒ}ƒVƒ“–¼‚Ì¶¬
+#ãƒã‚·ãƒ³åç”Ÿæˆ
 function create_name() {
   
   name_bef="kvm_centos7_"
@@ -34,10 +34,10 @@ function create_name() {
   echo "${name_bef}${name_aft}"
 }
 
-##ƒtƒ@ƒCƒ‹‚ÌƒRƒs[(Scp)
+##ãƒ•ã‚¡ã‚¤ãƒ«ã‚³ãƒ”ãƒ¼(Scp)
 function copy_file()
 {
-  #ƒtƒ@ƒCƒ‹î•ñ’è‹`
+  #å¤‰æ•°å®šç¾©
   HOST=$1
   USER=$2
   PASS=$3
@@ -66,10 +66,10 @@ function copy_file()
   
 }
 
-##ƒtƒ@ƒCƒ‹‚Ìíœ(Remove)
+##ãƒ•ã‚¡ã‚¤ãƒ«ã®å‰Šé™¤(Remove)
 function remove_file()
 {
-  #ƒtƒ@ƒCƒ‹î•ñ’è‹`
+  #å¤‰æ•°å®šç¾©
   HOST=$1
   USER=$2
   PASS=$3
@@ -85,10 +85,10 @@ function remove_file()
   
 }
 
-##‰¼‘zƒ}ƒVƒ“‚Ìì¬E—§‚¿ã‚°(virt-install)
+##ä»®æƒ³ãƒã‚·ãƒ³ã®ç”Ÿæˆãƒ»ç«‹ã¡ä¸Šã’(virt-install)
 function create_vm()
 {
-  #•Ï”’è‹`
+  #å¤‰æ•°å®šç¾©
   NAME=`create_name`
   VCPUS="2"
   RAM="1024"
@@ -119,7 +119,7 @@ function create_vm()
   
 }
 
-##‰¼‘zƒ}ƒVƒ“íœ(virsh undefine)
+##ä»®æƒ³ãƒã‚·ãƒ³ã®å‰Šé™¤(virsh undefine)
 function delete_vm() {
   vm_code=$1
   
@@ -131,3 +131,17 @@ function delete_vm() {
     die $?
   fi
 }
+
+##ä»®æƒ³ãƒã‚·ãƒ³ã®ã‚¹ã‚¿ãƒ¼ãƒˆ(virsh undefine)
+function start_vm() {
+  vm_code=$1
+
+  virsh start ${vm_code}
+
+  if [ $? -eq 0 ]; then
+    echo "SUCCESS"
+  else
+    die $?
+  fi
+}
+
