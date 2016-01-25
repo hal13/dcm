@@ -25,7 +25,7 @@ function die() {
   exit 1
 }
 
-#マシン名生成
+##マシン名生成
 function create_name() {
   
   name_bef="kvm_centos7_"
@@ -132,11 +132,24 @@ function delete_vm() {
   fi
 }
 
-##仮想マシンのスタート(virsh undefine)
+##仮想マシンのスタート(virsh start)
 function start_vm() {
   vm_code=$1
 
   virsh start ${vm_code}
+
+  if [ $? -eq 0 ]; then
+    echo "SUCCESS"
+  else
+    die $?
+  fi
+}
+
+##仮想マシンの停止(virsh destroy)
+function destroy_vm() {
+  vm_code=$1
+
+  virsh destroy ${vm_code}
 
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
