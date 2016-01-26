@@ -75,7 +75,7 @@ function remove_file()
   PASS=$3
   TARGET_FILE=$4
 
-  ssh root@${1} -o "StrictHostKeyChecking=no" rm -rf ${2}
+  ssh ${USER}@${HOST} -o "StrictHostKeyChecking=no" rm -rf ${PASS}${TARGET_FILE}
   
   if [ $? -eq 0 ]; then
     return 0
