@@ -16,4 +16,16 @@ PASS="cloud"
 TARGET_FILE="hoge.xml"
 TARGET_DIR="/etc/libvirt/qemu/"
 
+#引数のチェック
+  if [ $# -gt 2 ]; then
+    echo "argument err"
+    exit 1
+  fi
 
+#メイン処理
+  case $COMMAND in
+    "create")
+    "undefine")
+    "start")
+    "destroy")
+  esac
