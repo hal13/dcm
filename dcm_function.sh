@@ -4,7 +4,7 @@
 
 #関数定義
 ##エラー処理
-function die() {
+function err() {
   if [ $# -eq 1 ] ; then
       echo "ERROR : ${1}"
   else
@@ -49,7 +49,7 @@ function copy_file()
   if [ $? -eq 0 ]; then
     return 0
   else
-    die $?
+    err $?
   fi
   
 }
@@ -68,7 +68,7 @@ function remove_file()
   if [ $? -eq 0 ]; then
     return 0
   else
-    die $?
+    err $?
   fi
   
 }
@@ -102,7 +102,7 @@ function create_vm()
   if [ $? -eq 0 ]; then
     echo ${NAME}
   else
-    die $?
+    err $?
   fi
   
 }
@@ -116,7 +116,7 @@ function delete_vm() {
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
   else
-    die $?
+    err $?
   fi
 }
 
@@ -129,7 +129,7 @@ function start_vm() {
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
   else
-    die $?
+    err $?
   fi
 }
 
@@ -142,7 +142,7 @@ function destroy_vm() {
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
   else
-    die $?
+    err $?
   fi
 }
 
