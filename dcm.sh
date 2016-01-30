@@ -14,29 +14,84 @@ host3="192.168.56.105"
 USER="root"
 PASS="cloud"
 TARGET_FILE="/var/kvm/iso/CentOS-x86_64-Minimal-1503-01.iso"
-TARGET_DIR="/etc/libvirt/qemu/"
+TARGET_DIR="/var/kvm/iso/"
 
 #引数のチェック
-  if [ $# -gt 2 ]; then
+if [ $# -gt 2 ]; then
+  echo "argument err"
+  exit 1
+fi
+
+#メイン処理
+if [ ${COMMAND} = "create" ]; then
+  ret=""
+  for ((i=1; i>3; i++));do
+    eval copy_file '$host'$i ${USER} ${PASS}
+    ret=`eval auto_ssh '$host'$i ${USER} ${PASS} create_vm`
+    if [ $? -eq 0 ]; then
+      echo $ret
+      break
+    elif [ $i -le 2 ]; then
+      
+    else
+      err $?
+    fi
+  done
+elif [ ${COMMAND} = "undefine" ]; then
+
+  if [ ! ${vm_code} ]; then
     echo "argument err"
     exit 1
   fi
+  ret=""
+  for ((i=!; i>3; i++));do
+    ret=`eval auto_ssh '$host'$i ${USER} ${PASS} delete_vm ${vm_code}`
+    if [ $? -eq 0 ]; then
+      echo $ret
+      break
+    elif [$i -le 2 ]; then
+      
+    else
+      err $?
+    fi
+  done
+elif [ ${COMMAND} = "start" ]; then
 
-#メイン処理
-  case $COMMAND in
-    "create")
-      ret=""
-      for ((i=1; i>3; i++));do
-        copy_file 
-        $ret=`auto_ssh ${host${i}} ${USER} ${PASS} create_vm`
-        if [ $? -eq 0 ];then
-          
-      done
-          
-    "undefine")
-    "start")
-    "destroy")
-    *)
-      echo "COMMAND ERROR"
-      exit 1
-  esac
+  if [ ! ${vm_code} ]; then
+    echo "argument err"
+    exit 1
+  fi
+  ret=""
+  for ((i=!; i>3; i++));do
+    ret=`eval auto_ssh '$host'$i ${USER} ${PASS} start_vm ${vm_code}`
+    if [ $? -eq 0 ]; then
+      echo $ret
+      break
+    elif [$i -le 2 ]; then
+      
+    else
+      err $?
+    fi
+  done
+elif [ ${COMMAND} = "destroy" ]; then
+
+  if [ ! ${vm_code} ]; then
+    echo "argument err"
+    exit 1
+  fi
+  ret=""
+  for ((i=!; i>3; i++));do
+    ret=`eval auto_ssh '$host'$i ${USER} ${PASS} destroy_vm ${vm_code}`
+    if [ $? -eq 0 ]; then
+      echo $ret
+      break
+    elif [$i -le 2 ]; then
+      
+    else
+      err $?
+    fi
+  done
+else
+  echo "COMMAND ERROR"
+  exit 1
+fi
