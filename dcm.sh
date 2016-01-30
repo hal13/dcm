@@ -13,7 +13,7 @@ host3="192.168.56.105"
 
 USER="root"
 PASS="cloud"
-TARGET_FILE="hoge.xml"
+TARGET_FILE="/var/kvm/iso/CentOS-x86_64-Minimal-1503-01.iso"
 TARGET_DIR="/etc/libvirt/qemu/"
 
 #引数のチェック
@@ -25,7 +25,18 @@ TARGET_DIR="/etc/libvirt/qemu/"
 #メイン処理
   case $COMMAND in
     "create")
+      ret=""
+      for ((i=1; i>3; i++));do
+        copy_file 
+        $ret=`auto_ssh ${host${i}} ${USER} ${PASS} create_vm`
+        if [ $? -eq 0 ];then
+          
+      done
+          
     "undefine")
     "start")
     "destroy")
+    *)
+      echo "COMMAND ERROR"
+      exit 1
   esac

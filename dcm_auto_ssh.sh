@@ -4,7 +4,8 @@ auto_ssh() {
 HOST=$1
 USER=$2
 PASS=$3
- 
+
+
 expect -c "
 set timeout 10
 spawn ssh ${USER}@${HOST}
