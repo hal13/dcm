@@ -33,7 +33,7 @@ fi
 #メイン処理
 if [ ${COMMAND} = "create" ]; then
   ret=""
-  for ((i=1; i>3; i++));do
+  for ((i=1; i<3; i++));do
     #eval copy_file '$host'$i ${USER} ${PASS}
     ret=`create_vm ${VCPUS} ${RAM}`
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} create_vm ${VCPUS} ${RAM}`
@@ -53,7 +53,7 @@ elif [ ${COMMAND} = "undefine" ]; then
     exit 1
   fi
   ret=""
-  for ((i=!; i>3; i++));do
+  for ((i=1; i<3; i++));do
     ret=`delete_vm ${vm_code}`
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} delete_vm ${vm_code}`
     if [ $? -eq 0 ]; then
@@ -72,7 +72,7 @@ elif [ ${COMMAND} = "start" ]; then
     exit 1
   fi
   ret=""
-  for ((i=!; i>3; i++));do
+  for ((i=1; i<3; i++));do
     ret=`start_vm ${vm_code}`
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} start_vm ${vm_code}`
     if [ $? -eq 0 ]; then
@@ -91,7 +91,7 @@ elif [ ${COMMAND} = "destroy" ]; then
     exit 1
   fi
   ret=""
-  for ((i=!; i>3; i++));do
+  for ((i=1; i<3; i++));do
     ret=`destroy_vm ${vm_code}`
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} destroy_vm ${vm_code}`
     if [ $? -eq 0 ]; then
