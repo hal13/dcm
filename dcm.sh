@@ -11,7 +11,7 @@ host3="192.168.56.105"
 
 USER="root"
 PASS="cloud"
-TARGET_FILE="/var/kvm/iso/CentOS-x86_64-Minimal-1503-01.iso"
+TARGET_FILE="/var/kvm/iso/CentOS-7-x86_64-Minimal-1511.iso"
 TARGET_DIR="/var/kvm/iso/"
 
 #引数のチェック
