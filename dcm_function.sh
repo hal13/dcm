@@ -45,12 +45,6 @@ function copy_file()
   interact
   "
   
-  if [ $? -eq 0 ]; then
-    return 0
-  else
-    err $?
-  fi
-  
 }
 
 ##ファイルの削除(Remove)
