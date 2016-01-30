@@ -1,7 +1,5 @@
 #!/bin/bash
 
-. dcm_auto_ssh.sh
-
 #関数定義
 ##エラー処理
 function err() {
@@ -61,7 +59,7 @@ function remove_file()
   if [ $? -eq 0 ]; then
     return 0
   else
-    err $?
+    return 1
   fi
   
 }
@@ -94,7 +92,7 @@ function create_vm()
   if [ $? -eq 0 ]; then
     echo ${NAME}
   else
-    err $?
+    return 1
   fi
   
 }
@@ -108,7 +106,7 @@ function delete_vm() {
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
   else
-    err $?
+    return 1
   fi
 }
 
@@ -121,7 +119,7 @@ function start_vm() {
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
   else
-    err $?
+    return 1
   fi
 }
 
@@ -134,7 +132,7 @@ function destroy_vm() {
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
   else
-    err $?
+    return 1
   fi
 }
 
