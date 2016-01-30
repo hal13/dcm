@@ -1,7 +1,7 @@
 #!/bin/bash
 
-. dcm_auto_ssh.sh
-. dcm_function.sh
+. ./dcm_auto_ssh.sh
+. ./dcm_function.sh
 
 
 #定数定義
@@ -41,7 +41,7 @@ if [ ${COMMAND} = "create" ]; then
       echo $ret
       break
     elif [ $i -le 2 ]; then
-      
+      :
     else
       err $?
     fi
@@ -60,7 +60,7 @@ elif [ ${COMMAND} = "undefine" ]; then
       echo $ret
       break
     elif [$i -le 2 ]; then
-      
+      :
     else
       err $?
     fi
@@ -79,7 +79,7 @@ elif [ ${COMMAND} = "start" ]; then
       echo $ret
       break
     elif [$i -le 2 ]; then
-      
+      :
     else
       err $?
     fi
@@ -98,7 +98,7 @@ elif [ ${COMMAND} = "destroy" ]; then
       echo $ret
       break
     elif [$i -le 2 ]; then
-      
+      :
     else
       err $?
     fi

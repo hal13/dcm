@@ -145,12 +145,3 @@ function destroy_vm() {
   fi
 }
 
-##IPアドレス付番
-function charge_ip() {
-  
-}
-
-##IPアドレス開放
-function discharge_ip() {
-  
-}
