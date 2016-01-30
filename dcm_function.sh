@@ -10,7 +10,6 @@ function err() {
   else
       echo "ERROR : unknown error"
   fi
-  exit 1
 }
 
 ##マシン名生成
@@ -84,12 +83,10 @@ function create_vm()
   NETWORK_BRIDGE="virtbr0"
   ARCH="x86_64"
   OS_TYPE="linux"
-  ISO_FILE=$4
-  HOST=$1
-  USER=$2
-  PASS=$3
+  ISO_FILE="/var/kvm/iso/CentOS-x86_64-Minimal-1503-01.iso"
 
-  auto_ssh ${HOST} ${USER} ${PASS} virt-install \
+  virt-install \
+  #auto_ssh ${HOST} ${USER} ${PASS} virt-install \
     --name=${NAME} \
     --vcpus=${VCPUS} \
     --ram=${RAM} \
@@ -97,7 +94,8 @@ function create_vm()
     --network bridge=${NETWORK_BRIDGE} \
     --arch=${ARCH} \
     --os-type=${OS_TYPE} \
-    --cdrom=${ISO_FILE}
+    --file=${ISO_FILE}
+    --noautoconsole
   
   if [ $? -eq 0 ]; then
     echo ${NAME}
@@ -146,12 +144,12 @@ function destroy_vm() {
   fi
 }
 
-##IPアドレス開放
+##IPアドレス付番
 function charge_ip() {
   
 }
 
-##IPアドレス付番
+##IPアドレス開放
 function discharge_ip() {
   
 }
