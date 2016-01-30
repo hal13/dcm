@@ -4,7 +4,7 @@
 ##エラー処理
 function err() {
   if [ $# -eq 1 ] ; then
-      echo "ERROR : ${1}"
+      echo "ERROR : "${1}
   else
       echo "ERROR : unknown error"
   fi
@@ -69,13 +69,22 @@ function create_vm()
 {
   #変数定義
   NAME="`create_name`"
-  VCPUS="2"
-  RAM="1024"
   DISK_PATH="path=/var/kvm/disk/${NAME}/disk.qcow2,format=qcow2,size=8"
   NETWORK_BRIDGE="virtbr0"
   ARCH="x86_64"
   OS_TYPE="linux"
   ISO_FILE="/var/kvm/iso/CentOS-x86_64-Minimal-1503-01.iso"
+  if [ ${1} -eq 0 ]; then
+    VCPUS="2"
+  else
+    VCPUS=$1
+  fi
+  
+  if [ ${2} -eq 0 ]; then
+    RAM="1024"
+  else
+    RAM=$2
+  fi
 
   virt-install \
   #auto_ssh ${HOST} ${USER} ${PASS} virt-install \
