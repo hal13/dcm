@@ -95,7 +95,7 @@ function create_vm()
     --network bridge=${NETWORK_BRIDGE} \
     --arch=${ARCH} \
     --os-type=${OS_TYPE} \
-    --location=${ISO_FILE}
+    --location=${ISO_FILE} \
     --noautoconsole
   
   if [ $? -eq 0 ]; then
