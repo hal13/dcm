@@ -85,17 +85,8 @@ function create_vm()
     RAM=$2
   fi
 
-  virt-install \ << EOF
   #auto_ssh ${HOST} ${USER} ${PASS} virt-install \
-    --name=${NAME} \
-    --vcpus=${VCPUS} \
-    --ram=${RAM} \
-    --disk path=${DISK_PATH} \
-    --network bridge=${NETWORK_BRIDGE} \
-    --arch=${ARCH} \
-    --os-type=${OS_TYPE} \
-    --noautoconsole
-    EOF
+  virt-install  --name=${NAME} --vcpus=${VCPUS} --ram=${RAM} --disk path=${DISK_PATH} --network bridge=${NETWORK_BRIDGE} --arch=${ARCH} --os-type=${OS_TYPE} --noautoconsole
   
   if [ $? -eq 0 ]; then
     echo ${NAME}
