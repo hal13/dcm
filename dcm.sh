@@ -37,7 +37,7 @@ if [ ${COMMAND} = "create" ]; then
   ret=""
   for ((i=1; i<3; i++));do
     #eval copy_file '$host'$i ${USER} ${PASS}
-    ret=`create_vm ${VCPUS} ${RAM}`
+    ret=`create_vm ${VCPUS} ${RAM}` >/dev/null 2>&1
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} create_vm ${VCPUS} ${RAM}`
     if [ $? -eq 0 ]; then
       echo $ret
@@ -56,7 +56,8 @@ elif [ ${COMMAND} = "undefine" ]; then
   fi
   ret=""
   for ((i=1; i<3; i++));do
-    ret=`delete_vm ${vm_code}`
+    destroy_vm ${vm_code} >/dev/null 2>&1
+    ret=`delete_vm ${vm_code}` >/dev/null 2>&1
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} delete_vm ${vm_code}`
     if [ $? -eq 0 ]; then
       echo $ret
