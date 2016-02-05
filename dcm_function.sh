@@ -14,7 +14,7 @@ function err() {
 function create_name() {
   
   local name_bef="kvm_centos7_"
-  local name_aft="`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1 | sort | uniq`"
+  local name_aft="`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 8 | head -n 1 | sort | uniq`"
   
   echo "${name_bef}${name_aft}"
 }
