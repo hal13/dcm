@@ -1,9 +1,9 @@
 #!/bin/bash
  
 auto_ssh() {
-HOST=$1
-USER=$2
-PASS=$3
+local HOST=$1
+local USER=$2
+local PASS=$3
 
 
 expect -c "

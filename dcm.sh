@@ -1,7 +1,9 @@
 #!/bin/bash
 
-. ./dcm_auto_ssh.sh
-. ./dcm_function.sh
+CURRENT_DIR=`dirname "${0}"`
+
+. ${CURRENT_DIR}/dcm_auto_ssh.sh
+. ${CURRENT_DIR}/dcm_function.sh
 
 
 #定数定義
@@ -11,10 +13,7 @@ host3="192.168.56.105"
 
 USER="root"
 PASS="cloud"
-TARGET_FILE="/var/kvm/iso/CentOS-7-x86_64-Minimal-1511.iso"
-TARGET_DIR="/var/kvm/iso/"
 
-CURRENT_DIR=`dirname "${0}"`
 
 #引数のチェック
 if [ $# -gt 3 ]; then
