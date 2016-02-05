@@ -69,7 +69,8 @@ function create_vm()
 {
   #変数定義
   local NAME=`create_name`
-  local DISK_PATH="/var/kvm/disk/${NAME}/disk.qcow2,format=qcow2,size=8"
+  local DISK_SIZE="8"
+  local DISK_PATH="/var/kvm/disk/${NAME}/disk.qcow2,format=qcow2,size=${DISK_SIZE}"
   local NETWORK_BRIDGE="virbr0"
   local ARCH="x86_64"
   local OS_TYPE="linux"
@@ -79,14 +80,13 @@ function create_vm()
 
 
   if [ ${1} -eq 0 ]; then
-    VCPUS="2"
+    VCPUS="1"
   else
     VCPUS=$1
   fi
   
   if [ ! -e ${CHK_DIR} ]; then
-    mkdir ${CHK_DIR}
-    qemu-img create -f qcow2 ${CHK_DIR}/disk.qcow2 8G
+    cp -pr ${ORI_FILE} ${CHK_DIR} >/dev/null 2>&1
   fi
   
   if [ ${2} -eq 0 ]; then
