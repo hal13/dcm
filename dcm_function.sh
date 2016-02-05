@@ -95,7 +95,7 @@ function create_vm()
   fi
 
   #auto_ssh ${HOST} ${USER} ${PASS} virt-install \
-  virt-install  --name=${NAME} --vcpus=${VCPUS} --ram=${RAM} --disk path=${DISK_PATH} --network bridge=${NETWORK_BRIDGE} --arch=${ARCH} --os-type=${OS_TYPE} --noautoconsole
+  virt-install  --name=${NAME} --vcpus=${VCPUS} --ram=${RAM} --disk path=${DISK_PATH} --network bridge=${NETWORK_BRIDGE} --arch=${ARCH} --os-type=${OS_TYPE} --noautoconsole  >/dev/null 2>&1
   
   if [ $? -eq 0 ]; then
     echo ${NAME}
@@ -111,7 +111,7 @@ function delete_vm() {
   
   rm -rf /var/kvm/disk/${vm_code} >/dev/null 2>&1
   
-  virsh undefine ${vm_code}
+  virsh undefine ${vm_code} >/dev/null 2>&1
   
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
