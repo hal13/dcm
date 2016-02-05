@@ -73,7 +73,6 @@ function create_vm()
   local NETWORK_BRIDGE="virtbr0"
   local ARCH="x86_64"
   local OS_TYPE="linux"
-  local ISO_FILE="/var/kvm/iso/CentOS-7-x86_64-Minimal-1511.iso"
   if [ ${1} -eq 0 ]; then
     VCPUS="2"
   else
@@ -95,7 +94,6 @@ function create_vm()
     --network bridge=${NETWORK_BRIDGE} \
     --arch=${ARCH} \
     --os-type=${OS_TYPE} \
-    --location=${ISO_FILE} \
     --noautoconsole
   
   if [ $? -eq 0 ]; then
