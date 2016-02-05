@@ -74,7 +74,7 @@ function create_vm()
   local ARCH="x86_64"
   local OS_TYPE="linux"
 
-  local ORI_FILE="/var/kvm/disk/kvm_centos_7"
+  local ORI_FILE="/var/kvm/disk/kvm_centos7"
   local CHK_DIR="/var/kvm/disk/${NAME}/"
 
 
