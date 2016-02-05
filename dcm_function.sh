@@ -75,7 +75,7 @@ function create_vm()
   local OS_TYPE="linux"
 
   local ORI_FILE="/var/kvm/disk/kvm_centos7"
-  local CHK_DIR="/var/kvm/disk/${NAME}/"
+  local CHK_DIR="/var/kvm/disk/${NAME}"
 
 
   if [ ${1} -eq 0 ]; then
