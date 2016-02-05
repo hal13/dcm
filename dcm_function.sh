@@ -68,8 +68,7 @@ function remove_file()
 function create_vm()
 {
   #変数定義
-  #local NAME=`create_name`
-  local NAME="kvm_centos7"
+  local NAME=`create_name`
   local DISK_PATH="/var/kvm/disk/kvm_centos7/disk.qcow2,format=qcow2,size=8"
   local NETWORK_BRIDGE="virtbr0"
   local ARCH="x86_64"
@@ -86,7 +85,7 @@ function create_vm()
     RAM=$2
   fi
 
-  virt-install \
+  virt-install \ << EOF
   #auto_ssh ${HOST} ${USER} ${PASS} virt-install \
     --name=${NAME} \
     --vcpus=${VCPUS} \
@@ -96,6 +95,7 @@ function create_vm()
     --arch=${ARCH} \
     --os-type=${OS_TYPE} \
     --noautoconsole
+    EOF
   
   if [ $? -eq 0 ]; then
     echo ${NAME}
