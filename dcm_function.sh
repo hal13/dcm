@@ -109,6 +109,8 @@ function create_vm()
 function delete_vm() {
   vm_code=$1
   
+  rm -rf /var/kvm/disk/${vm_code} >/dev/null 2>&1
+  
   virsh undefine ${vm_code}
   
   if [ $? -eq 0 ]; then
@@ -122,7 +124,7 @@ function delete_vm() {
 function start_vm() {
   vm_code=$1
 
-  virsh start ${vm_code}
+  virsh start ${vm_code} >/dev/null 2>&1
 
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
@@ -135,7 +137,7 @@ function start_vm() {
 function destroy_vm() {
   vm_code=$1
 
-  virsh destroy ${vm_code}
+  virsh destroy ${vm_code} >/dev/null 2>&1
 
   if [ $? -eq 0 ]; then
     echo "SUCCESS"
