@@ -76,7 +76,7 @@ elif [ ${COMMAND} = "start" ]; then
   fi
   ret=""
   for ((i=1; i<3; i++));do
-    ret=`start_vm ${vm_code}`
+    ret=`start_vm ${vm_code}` >/dev/null 2>&1
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} start_vm ${vm_code}`
     if [ $? -eq 0 ]; then
       echo $ret
@@ -95,7 +95,7 @@ elif [ ${COMMAND} = "destroy" ]; then
   fi
   ret=""
   for ((i=1; i<3; i++));do
-    ret=`destroy_vm ${vm_code}`
+    ret=`destroy_vm ${vm_code}` >/dev/null 2>&1
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} destroy_vm ${vm_code}`
     if [ $? -eq 0 ]; then
       echo $ret
