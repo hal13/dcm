@@ -69,7 +69,7 @@ function create_vm()
 {
   #変数定義
   local NAME=`create_name`
-  local DISK_PATH="/var/kvm/disk/kvm_centos7/disk.qcow2,format=qcow2,size=8"
+  local DISK_PATH="/var/kvm/disk/${NAME}/disk.qcow2,format=qcow2,size=8"
   local NETWORK_BRIDGE="br0"
   local ARCH="x86_64"
   local OS_TYPE="linux"
