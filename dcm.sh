@@ -14,6 +14,8 @@ PASS="cloud"
 TARGET_FILE="/var/kvm/iso/CentOS-7-x86_64-Minimal-1511.iso"
 TARGET_DIR="/var/kvm/iso/"
 
+CURRENT_DIR=`dirname "${0}"`
+
 #引数のチェック
 if [ $# -gt 3 ]; then
   echo "argument err"

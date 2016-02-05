@@ -13,8 +13,8 @@ function err() {
 ##マシン名生成
 function create_name() {
   
-  name_bef="kvm_centos7_"
-  name_aft="`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1 | sort | uniq`"
+  local name_bef="kvm_centos7_"
+  local name_aft="`cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 16 | head -n 1 | sort | uniq`"
   
   echo "${name_bef}${name_aft}"
 }
@@ -23,11 +23,11 @@ function create_name() {
 function copy_file()
 {
   #変数定義
-  HOST=$1
-  USER=$2
-  PASS=$3
-  TARGET_FILE=$4
-  TARGET_DIR=$5
+  local HOST=$1
+  local USER=$2
+  local PASS=$3
+  local TARGET_FILE=$4
+  local TARGET_DIR=$5
   
   expect -c "
   spawn scp ${TARGET_FILE} ${USER}@${HOST}:${TARGET_DIR}
@@ -49,10 +49,10 @@ function copy_file()
 function remove_file()
 {
   #変数定義
-  HOST=$1
-  USER=$2
-  PASS=$3
-  TARGET_FILE=$4
+  local HOST=$1
+  local USER=$2
+  local PASS=$3
+  local TARGET_FILE=$4
 
   auto_ssh ${HOST} ${USER} ${PASS} rm -rf ${TARGET_FILE}
   
@@ -68,12 +68,12 @@ function remove_file()
 function create_vm()
 {
   #変数定義
-  NAME="`create_name`"
-  DISK_PATH="path=/var/kvm/disk/${NAME}/disk.qcow2,format=qcow2,size=8"
-  NETWORK_BRIDGE="virtbr0"
-  ARCH="x86_64"
-  OS_TYPE="linux"
-  ISO_FILE="/var/kvm/iso/CentOS-7-x86_64-Minimal-1511.iso"
+  local NAME="`create_name`"
+  local DISK_PATH="path=/var/kvm/disk/kvm_centos7/disk.qcow2,format=qcow2,size=8"
+  local NETWORK_BRIDGE="virtbr0"
+  local ARCH="x86_64"
+  local OS_TYPE="linux"
+  local ISO_FILE="/var/kvm/iso/CentOS-7-x86_64-Minimal-1511.iso"
   if [ ${1} -eq 0 ]; then
     VCPUS="2"
   else
@@ -145,3 +145,16 @@ function destroy_vm() {
   fi
 }
 
+##付与可能IPアドレス検索
+function getIP_addr() {
+  management_file=$1
+  
+  ret=`cat ${management_file} | grep -v '#' | head -1`
+  
+  if [ $? -eq 0 ]; then
+    echo ${ret}
+  else
+    return 1
+  fi
+  
+}
