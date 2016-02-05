@@ -74,9 +74,8 @@ function create_vm()
   local ARCH="x86_64"
   local OS_TYPE="linux"
 
-  local ORI_FILE="/var/kvm/disk/kvm_centos_7/disk.qcow2"
+  local ORI_FILE="/var/kvm/disk/kvm_centos_7"
   local CHK_DIR="/var/kvm/disk/${NAME}/"
-  local CHK_FILE="${CHK_DIR}disk.qcow2"
 
 
   if [ ${1} -eq 0 ]; then
@@ -86,11 +85,7 @@ function create_vm()
   fi
   
   if [ ! -e ${CHK_DIR} ]; then
-    mkdir ${CHK_DIR}
-  fi
-  
-  if [ ! -e ${CHK_FILE} ]; then
-    cp -pr ${ORI_FILE} ${CHK_FILE}
+    cp -pr ${ORI_FILE} ${CHK_DIR}
   fi
   
   if [ ${2} -eq 0 ]; then
