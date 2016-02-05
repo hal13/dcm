@@ -86,7 +86,7 @@ function create_vm()
   
   if [ ! -e ${CHK_DIR} ]; then
     mkdir ${CHK_DIR}
-    qemu-img -f qcow2 ${CHK_DIR}/disk.qcow2 8G
+    qemu-img create -f qcow2 ${CHK_DIR}/disk.qcow2 8G
   fi
   
   if [ ${2} -eq 0 ]; then
