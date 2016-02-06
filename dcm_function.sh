@@ -183,7 +183,7 @@ function get_max_disk() {
   local management_file="${1}/mng_server.txt"
   local server_addr=$2
 
-  ret=$(echo "scale=3; $ret*1024" | bc)
+  local ret=`cat ${management_file} | grep ${server_addr} | awk -F' ' '{print $3}'`
   
   if [ $? -eq 0 ]; then
     echo ${ret}
