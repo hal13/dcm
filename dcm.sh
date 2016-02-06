@@ -7,9 +7,7 @@ CURRENT_DIR=`dirname "${0}"`
 
 
 #定数定義
-host1="192.168.56.103" #（仮）
-host2="192.168.56.104" #（仮）
-host3="192.168.56.105" #（仮）
+host1="192.168.118.149" #（仮）
 
 USER="root"
 PASS="cloud"
@@ -36,14 +34,14 @@ if [ ${COMMAND} = "create" ]; then
   ret=""
   #for ((i=1; i<3; i++));do
     #eval copy_file '$host'$i ${USER} ${PASS}
-    local max_ram=`get_max_memory ${CURRENT_DIR} ${host1}`
-    local res_ram=`get_memory ${CURRENT_DIR} ${host1}`
-    local emp_ram=`expr ${max_ram}-${res_ram}`
+    max_ram=`get_max_memory ${CURRENT_DIR} ${host1}`
+    res_ram=`get_memory ${CURRENT_DIR} ${host1}`
+    emp_ram=`expr ${max_ram}-${res_ram}`
     
-    local max_disk=`get_max_disk ${CURRENT_DIR} ${host1}`
-    local res_disk=`get_disk ${CURRENT_DIR} ${host1}`
-    local emp_disk=`expr ${max_disk}-${res_disk}`
-    local DISK=8
+    max_disk=`get_max_disk ${CURRENT_DIR} ${host1}`
+    res_disk=`get_disk ${CURRENT_DIR} ${host1}`
+    emp_disk=`expr ${max_disk}-${res_disk}`
+    DISK=8
 
     if [ ${RAM} -ge ${emp_ram} ]; then
       echo "ERROR:RAM OVER"
@@ -112,7 +110,7 @@ elif [ ${COMMAND} = "destroy" ]; then
     exit 1
   fi
   ret=""
-  for ((i=1; i<3; i++));do
+  #for ((i=1; i<3; i++));do
     ret=`destroy_vm ${vm_code}` >/dev/null 2>&1
     #ret=`eval auto_ssh '$host'$i ${USER} ${PASS} destroy_vm ${vm_code}`
     if [ $? -eq 0 ]; then

@@ -155,8 +155,6 @@ function get_max_memory() {
 
   local ret=`cat ${management_file} | grep ${server_addr} | awk -F' ' '{print $2}'`
   
-  ret=$(echo "scale=3; $ret*1024" | bc)
-  
   if [ $? -eq 0 ]; then
     echo ${ret}
   else
@@ -172,8 +170,6 @@ function get_memory() {
   
   local ret=`cat ${management_file} | grep ${server_addr} | awk '{total = total + $3} END{print total}'`
     
-  ret=$(echo "scale=3; $ret*1024" | bc)
-  
   if [ $? -eq 0 ]; then
     echo ${ret}
   else
@@ -187,8 +183,6 @@ function get_max_disk() {
   local management_file="${1}/mng_server.txt"
   local server_addr=$2
 
-  local ret=`cat ${management_file} | grep ${server_addr} | awk -F' ' '{print $3}'`
-  
   ret=$(echo "scale=3; $ret*1024" | bc)
   
   if [ $? -eq 0 ]; then
@@ -206,8 +200,6 @@ function get_disk() {
   
   local ret=`cat ${management_file} | grep ${server_addr} | awk '{total = total + $4} END{print total}'`
     
-  ret=$(echo "scale=3; $ret*1024" | bc)
-  
   if [ $? -eq 0 ]; then
     echo ${ret}
   else
