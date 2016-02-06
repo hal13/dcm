@@ -77,6 +77,7 @@ function create_vm()
 
   local ORI_FILE="/var/kvm/disk/kvm_centos7"
   local CHK_DIR="/var/kvm/disk/${NAME}"
+  local kick_start="/tmp/centos7.ks.cfg"
 
 
   if [ ${1} -eq 0 ]; then
@@ -96,7 +97,7 @@ function create_vm()
   fi
 
   #auto_ssh ${HOST} ${USER} ${PASS} virt-install \
-  virt-install  --name=${NAME} --vcpus=${VCPUS} --ram=${RAM} --disk path=${DISK_PATH} --network bridge=${NETWORK_BRIDGE} --arch=${ARCH} --os-type=${OS_TYPE} --noautoconsole  >/dev/null 2>&1
+  virt-install  --name=${NAME} --vcpus=${VCPUS} --ram=${RAM} --disk path=${DISK_PATH} --network bridge=${NETWORK_BRIDGE} --arch=${ARCH} --os-type=${OS_TYPE} --serial=pty --location=/var/kvm/iso/CentOS-7-x86_64-Minimal-1503-01.iso --nographics --initrd-inject=${kick_start} --extra-args='inst.ks=file:${kick_start} console=ttyS0'  >/dev/null 2>&1
   
   if [ $? -eq 0 ]; then
     echo ${NAME}
@@ -147,11 +148,14 @@ function destroy_vm() {
   fi
 }
 
-##付与可能IPアドレス検索
-function getIP_addr() {
-  management_file=$1
+#サーバの最大メモリを取得
+function get_max_memory() {
+  local management_file="${1}/mng_server.txt"
+  local server_addr=$2
+
+  local ret=`cat ${management_file} | grep ${server_addr} | awk -F' ' '{print $2}'`
   
-  ret=`cat ${management_file} | grep -v '#' | head -1`
+  ret=$(echo "scale=3; $ret*1024" | bc)
   
   if [ $? -eq 0 ]; then
     echo ${ret}
@@ -160,3 +164,55 @@ function getIP_addr() {
   fi
   
 }
+
+#貸し出し済みのメモリを取得
+function get_memory() {
+  local management_file="${1}/mng_VM.txt"
+  local server_addr=$2
+  
+  local ret=`cat ${management_file} | grep ${server_addr} | awk '{total = total + $3} END{print total}'`
+    
+  ret=$(echo "scale=3; $ret*1024" | bc)
+  
+  if [ $? -eq 0 ]; then
+    echo ${ret}
+  else
+    return 1
+  fi
+  
+}
+
+#サーバの最大ディスク容量を取得
+function get_max_disk() {
+  local management_file="${1}/mng_server.txt"
+  local server_addr=$2
+
+  local ret=`cat ${management_file} | grep ${server_addr} | awk -F' ' '{print $3}'`
+  
+  ret=$(echo "scale=3; $ret*1024" | bc)
+  
+  if [ $? -eq 0 ]; then
+    echo ${ret}
+  else
+    return 1
+  fi
+  
+}
+
+#貸し出し済みのディスクを取得
+function get_disk() {
+  local management_file="${1}/mng_VM.txt"
+  local server_addr=$2
+  
+  local ret=`cat ${management_file} | grep ${server_addr} | awk '{total = total + $4} END{print total}'`
+    
+  ret=$(echo "scale=3; $ret*1024" | bc)
+  
+  if [ $? -eq 0 ]; then
+    echo ${ret}
+  else
+    return 1
+  fi
+  
+}
+
