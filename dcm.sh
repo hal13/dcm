@@ -42,13 +42,13 @@ if [ ${COMMAND} = "create" ]; then
     res_disk=`get_disk ${CURRENT_DIR} ${host1}`
     emp_disk=`expr ${max_disk}-${res_disk}`
     DISK=8
-
-    if [ ${RAM} -ge ${emp_ram} ]; then
+    
+    if [ ${emp_ram} -le 0 ] || [ ${RAM} -ge ${emp_ram} ]; then
       echo "ERROR:RAM OVER"
       exit 1
     fi
     
-    if [ ${DISK} -ge ${emp_disk} ]; then
+    if [ ${emp_disk} -le 0 ] || [ ${DISK} -ge ${emp_disk} ]; then
       echo "ERROR:DISK OVER"
       exit 1
     fi
